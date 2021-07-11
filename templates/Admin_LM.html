@@ -1,0 +1,123 @@
+{% load static %}
+{% load index %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>RedCarpetUp - Administrator Loan Management</title>
+    <meta content="" name="description" />
+
+    <meta content="" name="keywords" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="/static/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/static/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="/static/vendor/aos/aos.css" rel="stylesheet" />
+    <link href="/static/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="/static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link
+      href="/static/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Template Main CSS File -->
+    <link href="/static/css/style.css" rel="stylesheet" />
+    <style>
+      .container a {
+        text-decoration: none;
+        color: #0b198f;
+      }
+
+      table, td, th {
+        border: 1px solid black;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+  <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top header-scrolled">
+      <div
+        class="
+          container-fluid container-xl
+          d-flex
+          align-items-center
+          justify-content-between
+        "
+      >
+        <a href="{% url 'homeview' %}" class="logo d-flex align-items-center">
+          <img src="{% static 'img/logo.png' %}" alt="" />
+          <span>RedCarpetUp - LMS</span>
+        </a>
+
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li>
+                <p>Welcome {{ username }}</p>
+            </li>
+            <li>
+              <a class="getstarted scrollto" href="{% url 'logoutview' %}"
+                >Logout</a
+              >
+            </li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <!-- .navbar -->
+      </div>
+    </header>
+    <section id="hero" class="hero d-flex align-items-center">
+      <div class="container">
+        <div class="align-items-center">
+          <br />
+          <h2 align="center">Welcome to RedCarpetUp - Administrator Loan Management System</h2><br/><br/>
+              <table id="mytable">
+                  <tr>
+                      <th>Loan ID</th>
+                      <th>Customer First Name</th>
+                      <th>Customer Last Name</th>
+                      <th>Date of Birth</th>
+                      <th>Age</th>
+                      <th>Agent Serviced</th>
+                      <th>Loan Amount</th>
+                      <th>Loan Tenure</th>
+                      <th>Loan ROI</th>
+                      <th>Monthly Interest</th>
+                  </tr>
+                  {% for x in length_list %}
+                      <tr>
+                          <td>{{ loan_id|index:x }}</td>
+                          <td>{{ custfirstname|index:x }}</td>
+                          <td>{{ custlastname|index:x }}</td>
+                          <td>{{ dob|index:x }}</td>
+                          <td>{{ age|index:x }}</td>
+                          <td>{{ agentserviced|index:x }}</td>
+                          <td>{{ loanamount|index:x }}</td>
+                          <td>{{ loantenure|index:x }}</td>
+                          <td>{{ loanroi|index:x }}</td>
+                          <td>{{ monthlyinterest|index:x }}</td>
+                      </tr>
+                  {% endfor %}
+              </table>
+          </div>
+      </div>
+    </section>
+  </body>
+</html>

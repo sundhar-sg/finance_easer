@@ -1,0 +1,163 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>RedCarpetUp - LMS Login Page</title>
+    <meta content="" name="description" />
+
+    <meta content="" name="keywords" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}"
+      rel="stylesheet"
+    />
+    <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet" />
+    <link
+      href="{% static 'vendor/remixicon/remixicon.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'vendor/swiper/swiper-bundle.min.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'vendor/glightbox/css/glightbox.min.css' %}"
+      rel="stylesheet"
+    />
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <style>
+      .container a {
+        background-color: #0d64fd;
+        text-decoration: none;
+        color: #0b198f;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top header-scrolled">
+      <div
+        class="
+          container-fluid container-xl
+          d-flex
+          align-items-center
+          justify-content-between
+        "
+      >
+        <a href="{% url 'homeview' %}" class="logo d-flex align-items-center">
+          <img src="{% static 'img/logo.png' %}" alt="" />
+          <span>RedCarpetUp - LMS</span>
+        </a>
+
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li>
+              <a class="nav-link scrollto" href="{% url 'homeview' %}">Home</a>
+            </li>
+            <li><a class="nav-link scrollto" href="#about">About</a></li>
+            <li>
+              <a class="nav-link scrollto" href="{% url 'signupview' %}"
+                >Signup</a
+              >
+            </li>
+            <li>
+              <a class="getstarted scrollto" href="{% url 'loginview' %}"
+                >Login</a
+              >
+            </li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <!-- .navbar -->
+      </div>
+    </header>
+    <!-- End Header -->
+    <section id="hero" class="hero d-flex align-items-center">
+      <div class="container">
+        <div class="align-items-center">
+          <br />
+          <h1 align="center">Welcome to RedCarpetUp - LMS Login Page</h1>
+          <h3 align="center">
+            Please login using your credentials to access your account
+          </h3>
+          <br />
+          <form action="{% url 'loginview' %}" method="POST">
+            {% csrf_token %}
+            <div class="container" align="center">
+              <label>E - Mail</label><br />
+              <input type="text" name="emailid" required />
+            </div>
+            <br />
+            <div class="container" align="center">
+              <label>Password</label><br />
+              <input type="password" name="passwrd" id="passwrd_id" required />
+            </div>
+            <br />
+            <div class="container" align="center">
+              <input type="checkbox" onclick="Password()" />Show Password<br /><br />
+            </div>
+            <div class="container" align="center">
+              <label>Select a Role Type</label><br />
+              <select id = "role" name = "usersrole">
+                  <option value="" selected="selected">Select a Role</option>
+                  <option value="Administrator">Administrator</option>
+                  <option value="Agent">Agent</option>
+                  <option value="Customer">Customer</option>
+              </select>
+            </div><br/>
+            <br />
+            <div class="container" align="center">
+              <button class="btn btn-primary btn-sm">Login</button>
+            </div>
+            {% if messages %} {% for message in messages %}
+            <h3 style="color: red">{{ message }}</h3>
+            {% endfor %} {% endif %}
+          </form>
+          <div class="container" align="center">
+            <p align="center">
+              Don't have an account,
+              <a class="bg-transparent" href="{% url 'signupview' %}"
+                >Sign Up</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      const labels = document.querySelectorAll(".container label");
+      labels.forEach((label) => {
+        label.innerHTML = label.innerText
+          .split("")
+          .map(
+            (letter, idx) =>
+              `<span style="transition-delay:${idx * 50}ms">${letter}</span>`
+          )
+          .join("");
+      });
+      function Password() {
+        var x = document.getElementById("passwrd_id");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
+    </script>
+  </body>
+</html>
