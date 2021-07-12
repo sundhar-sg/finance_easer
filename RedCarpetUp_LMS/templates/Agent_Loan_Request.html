@@ -1,0 +1,162 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>RedCarpetUp - Agent Loan Request System</title>
+    <meta content="" name="description" />
+
+    <meta content="" name="keywords" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="/static/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/static/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="/static/vendor/aos/aos.css" rel="stylesheet" />
+    <link href="/static/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="/static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link
+      href="/static/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Template Main CSS File -->
+    <link href="/static/css/style.css" rel="stylesheet" />
+    <style>
+      .container a {
+        text-decoration: none;
+        color: #0b198f;
+      }
+    </style>
+  </head>
+  <body>
+        <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top header-scrolled">
+      <div
+        class="
+          container-fluid container-xl
+          d-flex
+          align-items-center
+          justify-content-between
+        "
+      >
+        <a href="{% url 'homeview' %}" class="logo d-flex align-items-center">
+          <img src="{% static 'img/logo.png' %}" alt="" />
+          <span>RedCarpetUp - LMS</span>
+        </a>
+
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li>
+                <p>Welcome {{ username }}</p>
+            </li>
+            <li>
+              <a class="getstarted scrollto" href="{% url 'logoutview' %}"
+                >Logout</a
+              >
+            </li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <!-- .navbar -->
+      </div>
+    </header>
+  <section id="hero" class="hero overflow-scroll align-items-center">
+      <div class="container">
+        <div class="align-items-center">
+          <br />
+          <h1 align="center">Welcome to RedCarpetUp - Agent Loan Request Page</h1>
+          <h3 align="center">
+            Agents of our company only can apply for new loan requests
+          </h3>
+          <br />
+          <form action="{% url 'agentloanrequestview' %}" method="POST">
+            {% csrf_token %}
+            <div class="container" align="center">
+              <label>Request ID</label><br />
+              <input type="text" name="loanrequestid" required />
+            </div><br/>
+            <div class="container" align="center">
+              <label>First Name</label><br />
+              <input type="text" name="loancustfirstname" required />
+            </div>
+            <br />
+            <div class="container" align="center">
+              <label>Last Name</label><br />
+              <input type="text" name="loancustlastname" required />
+            </div>
+            <br />
+            <div class="container" align="center">
+              <label>Date of Birth</label><br />
+              <input type="date" name="custdob" id="mydob" required /><br/>
+              <button class="btn btn-secondary" onclick="CalcAge()">Calculate Age</button>
+            </div><br/>
+            <div class="container" align="center">
+                <label>Age</label><br />
+                <input type="text" name="custage" id="myage"/>
+            </div>
+            <br />
+            <div class="container" align="center">
+              <label>Agent Requested</label><br/>
+              <input type="text" name="requestedagent" required/>
+            </div><br />
+            <div class="container" align="center">
+              <label>Loan Amount</label><br />
+              <input type="text" name="requestedloanamount" id="loan_amount" required/>
+            </div><br/>
+            <div class="container" align="center">
+              <label>Loan Tenure(in Years)</label><br />
+              <input type="text" name="requestedloantenure" id="loan_tenure" required />
+            </div>
+            <br />
+            <div class="container" align="center">
+              <label>Alotted Rate of Interest</label><br />
+              <input type="text" name="alottedloanroi" id="roi" required /><br/>
+              <button class="btn btn-secondary" onclick="Calculate()">Calculate Interest</button>
+            </div>
+            <br />
+            <div class="container" align="center">
+              <label>Loan Interest</label><br />
+              <input type="text" name="calculatedloaninterest" id="loan_interest"/>
+            </div>
+            <br />
+            <div class="container" align="center">
+               <button class="btn btn-primary">Submit Request</button>
+            </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <h3 style="color: red">{{ message }}</h3>
+                {% endfor %}
+            {% endif %}
+          </form>
+          <script>
+            function Calculate() {
+                let principle = parseInt(document.getElementById('loan_amount').value);
+                let tenure = parseInt(document.getElementById('loan_tenure').value);
+                let roi = parseInt(document.getElementById('roi').value);
+                document.getElementById('loan_interest').value = ((principle * tenure * roi)/100).toString();
+            }
+            function CalcAge() {
+                var today = new Date();
+                var birthDate = new Date(document.getElementById('mydob').value);
+                var age = today.getFullYear() - birthDate.getFullYear();
+                document.getElementById('myage').value = age.toString();
+            }
+            </script>
+        </div>
+      </div>
+  </section>
+  </body>
+</html>
