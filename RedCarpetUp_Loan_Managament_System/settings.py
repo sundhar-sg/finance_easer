@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sessions.backends.db',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'RedCarpetUp_Loan_Managament_System',
